@@ -1,0 +1,19 @@
+pipeline {
+    agent any
+    tools {
+        mvn 'maven3.9'
+    }
+
+    stages {
+        stage('code') {
+            steps {
+                git branch: 'main', url: 'https://github.com/devops5081/test.git'
+            }
+        }
+        stage('compile') {
+            steps {
+                mvn 'clean package'
+            }
+        }
+    }
+}
