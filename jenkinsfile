@@ -1,18 +1,23 @@
 pipeline {
     agent any
     tools {
-        maven 'maven3.9'
+        maven 'maven'
     }
 
     stages {
-        stage('code') {
+        stage('copy from git') {
             steps {
                 git branch: 'main', url: 'https://github.com/devops5081/test.git'
             }
         }
-        stage('compile') {
+        stage('clean') {
             steps {
-                mvn 'clean package'
+                sh 'mvn clean'
+            }
+        }
+        stage('package') {
+            steps {
+               sh 'mvn package'
             }
         }
     }
